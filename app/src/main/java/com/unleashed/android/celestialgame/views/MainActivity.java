@@ -15,6 +15,7 @@ import com.unleashed.android.celestialgame.controllers.FirebaseDBHelper;
 import com.unleashed.android.celestialgame.helpers.Constants;
 import com.unleashed.android.celestialgame.helpers.Utils;
 import com.unleashed.android.celestialgame.models.User;
+import com.unleashed.android.celestialgame.models.UserProfile;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
     }
 
     private void writeNewUser(String userId, String password) {
-        User userObj = new User(userId, password);
+        User userObj = new User(userId, password, new UserProfile("",""));
 
         // Check if user exists already, if yes display a error toast
         if(isUserAlreadyExist(userId)){
@@ -97,6 +98,11 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
     private void prepareLocalUserList(DataSnapshot dataSnapshot){
         Map<String, Object> objectMap = (HashMap<String, Object>) dataSnapshot.getValue();
         HashMap<String, Object> jsonPayload = (HashMap<String, Object>)objectMap.get("users");
+        if(jsonPayload == null){
+            // No Users yet
+            return;
+        }
+
         Collection<HashMap<String, String>> list = new ArrayList(jsonPayload.values());
 
         int sizeoflist = list.size();
@@ -106,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
             String username = ((HashMap<String, String>)list.toArray()[i]).get(Constants.USERNAME).toString();
             String password = ((HashMap<String, String>)list.toArray()[i]).get(Constants.PASSWORD).toString();
 
-            User user = new User(username, password);
+            User user = new User(username, password, new UserProfile("", ""));
             mListUser.add(user);
             i++;
         }
