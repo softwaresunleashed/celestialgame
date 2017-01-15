@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "385269736739",
+    "firebase_url": "https://celestial-game.firebaseio.com",
+    "project_id": "celestial-game",
+    "storage_bucket": "celestial-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385269736739:android:22bc596b97e8e94f",
+        "android_client_info": {
+          "package_name": "com.unleashed.android.celestialgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385269736739-8dm0er993o40avgqne6643ibjjape86c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unleashed.android.celestialgame",
+            "certificate_hash": "AF37A1532B46BC91AB4915DA86BF1F1391199B57"
+          }
+        },
+        {
+          "client_id": "385269736739-unmf2b3lv05f5cknl79m5thl22bqb5hu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6IuhecBo8u45uIzQWTGd1r0Fh_Fifd6o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385269736739-unmf2b3lv05f5cknl79m5thl22bqb5hu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
