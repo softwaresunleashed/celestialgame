@@ -81,14 +81,21 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
 
         // Check if user exists already, if yes display a error toast
         if(isUserAlreadyExist(userId)){
-            displayError("User Exists...Try With Different UserName");
+            displayPopup("User Exists...Try With Different UserName");
             return;
         } else {
             FirebaseDBHelper.write("users", userId ,userObj);
+            clearInputFields();
+            displayPopup("New User Created...");
         }
     }
 
-    private void displayError(String s) {
+    private void clearInputFields() {
+        etUsername.setText("");
+        etPassword.setText("");
+    }
+
+    private void displayPopup(String s) {
         Toast.makeText(CelestialApplication.getContext(), s, Toast.LENGTH_LONG).show();
     }
 
@@ -130,12 +137,39 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_login:
+                authenticateUser(etUsername.getText().toString(), etPassword.getText().toString());
                 break;
 
             case R.id.tv_signup:
                 writeNewUser(etUsername.getText().toString(), etPassword.getText().toString());
                 break;
         }
+    }
+
+    private void authenticateUser(String username, String password) {
+        boolean validuser = false;
+
+        int sizeoflist = mListUser.size();
+        int i = 0;
+        while(i < sizeoflist){
+            String usernameInDB = mListUser.get(i).getUsername();
+            String passwordInDB = mListUser.get(i).getPassword();
+            if(username.equals(usernameInDB) && password.equals(passwordInDB)){
+                validuser = true;
+                break;
+            }
+            i++;
+        }
+
+        // Check if valid user was found
+        if(validuser){
+            displayPopup("Login Success...");
+            // Take me to user profile page
+        } else {
+            displayPopup("Try again with Correct Login Credentials.");
+        }
+
+
     }
 
     private boolean isUserAlreadyExist(String username){
