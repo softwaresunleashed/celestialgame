@@ -6,15 +6,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.unleashed.android.celestialgame.R;
-import com.unleashed.android.celestialgame.application.CelestialApplication;
 import com.unleashed.android.celestialgame.controllers.FirebaseDBHelper;
 import com.unleashed.android.celestialgame.helpers.Constants;
+import com.unleashed.android.celestialgame.helpers.Utils;
 import com.unleashed.android.celestialgame.models.User;
 
 import java.util.ArrayList;
@@ -81,22 +80,18 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
 
         // Check if user exists already, if yes display a error toast
         if(isUserAlreadyExist(userId)){
-            displayPopup("User Exists...Try With Different UserName");
+            Utils.displayPopup("User Exists...Try With Different UserName");
             return;
         } else {
             FirebaseDBHelper.write("users", userId ,userObj);
             clearInputFields();
-            displayPopup("New User Created...");
+            Utils.displayPopup("New User Created...");
         }
     }
 
     private void clearInputFields() {
         etUsername.setText("");
         etPassword.setText("");
-    }
-
-    private void displayPopup(String s) {
-        Toast.makeText(CelestialApplication.getContext(), s, Toast.LENGTH_LONG).show();
     }
 
     private void prepareLocalUserList(DataSnapshot dataSnapshot){
@@ -162,12 +157,12 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
 
         // Check if valid user was found
         if(validuser){
-            displayPopup("Login Success...");
+            Utils.displayPopup("Login Success...");
             // Take me to user profile page
             UserProfilePage.startActivity(this, username);
 
         } else {
-            displayPopup("Try again with Correct Login Credentials.");
+            Utils.displayPopup("Try again with Correct Login Credentials.");
         }
 
 
