@@ -1,4 +1,4 @@
-package com.unleashed.android.celestialgame.dbhelper;
+package com.unleashed.android.celestialgame.controllers;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -12,8 +12,6 @@ public class FirebaseDBHelper {
 
     private static FirebaseDatabase database;
     private static DatabaseReference dbRef;
-
-
 
 
     public static void init(){
@@ -30,7 +28,6 @@ public class FirebaseDBHelper {
     public static void write(String tablename, String userId, Object obj_to_write){
         dbRef.child(tablename).child(userId).setValue(obj_to_write);
     }
-
 
 
 

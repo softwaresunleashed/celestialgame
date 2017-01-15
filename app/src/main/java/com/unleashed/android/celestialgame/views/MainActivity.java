@@ -2,6 +2,7 @@ package com.unleashed.android.celestialgame.views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,15 +11,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.unleashed.android.celestialgame.R;
-import com.unleashed.android.celestialgame.dbhelper.FirebaseDBHelper;
+import com.unleashed.android.celestialgame.controllers.FirebaseDBHelper;
+import com.unleashed.android.celestialgame.helpers.Constants;
 import com.unleashed.android.celestialgame.models.User;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements ValueEventListener, View.OnClickListener {
 
+    private static final String TAG = "CelestialGameTag";
     private EditText etUsername;
     private EditText etPassword;
     private TextView tvLogin;
     private TextView tvSignUp;
+
+    private List<User> mListUser;
 
 
 
@@ -31,15 +42,23 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
         // Init UI Handles
         initUIHandles();
 
+        // Init Datastructures
+        initDataStructures();
+
         // Init Firebase database.
         FirebaseDBHelper.init();
 
         //Add Firebase data change event handler -- onDataChange() & onCancelled()
         FirebaseDBHelper.addValueEventListener(this);
 
-        writeNewUser("sudha", "hello");
-
     }
+
+    private void initDataStructures() {
+        if(mListUser == null){
+            mListUser = new ArrayList<User>();
+        }
+    }
+
 
     private void initUIHandles() {
         etUsername = (EditText)findViewById(R.id.et_username);
@@ -59,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
         User userObj = new User(userId, password);
 
         FirebaseDBHelper.write("users", userId ,userObj);
-
     }
 
 
@@ -68,14 +86,28 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
     public void onDataChange(DataSnapshot dataSnapshot) {
         // This method is called once with the initial value and again
         // whenever data at this location is updated.
-        //String value = dataSnapshot.getValue(String.class);
-        //Log.d(TAG, "Value is: " + value);
+
+        Map<String, Object> objectMap = (HashMap<String, Object>) dataSnapshot.getValue();
+        HashMap<String, Object> jsonPayload = (HashMap<String, Object>)objectMap.get("users");
+        Collection<HashMap<String, String>> list = new ArrayList(jsonPayload.values());
+
+        int sizeoflist = list.size();
+        int i = 0;
+        mListUser.clear();
+        while(i < sizeoflist){
+            String username = ((HashMap<String, String>)list.toArray()[i]).get(Constants.USERNAME).toString();
+            String password = ((HashMap<String, String>)list.toArray()[i]).get(Constants.PASSWORD).toString();
+
+            User user = new User(username, password);
+            mListUser.add(user);
+            i++;
+        }
     }
 
     @Override
     public void onCancelled(DatabaseError databaseError) {
         // Failed to read value
-        //Log.w(TAG, "Failed to read value.", databaseError.toException());
+        Log.w(TAG, "Failed to read value.", databaseError.toException());
     }
 
 
