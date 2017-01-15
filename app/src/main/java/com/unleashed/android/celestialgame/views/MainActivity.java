@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
         // Check if valid user was found
         if(validuser){
             Utils.displayPopup("Login Success...");
+            clearInputFields();
             // Take me to user profile page
             UserProfilePage.startActivity(this, username);
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.unleashed.android.celestialgame.R;
 import com.unleashed.android.celestialgame.helpers.Constants;
@@ -14,7 +14,7 @@ public class UserProfilePage extends AppCompatActivity {
     private String mUsername;
 
 
-    private TextView tvUsername;
+    private EditText etUsername;
 
 
     public static void startActivity(Context context, String username) {
@@ -25,17 +25,9 @@ public class UserProfilePage extends AppCompatActivity {
     }
 
     private void initUIHandles() {
-//        etUsername = (EditText)findViewById(R.id.et_username);
-//        etUsername.setOnClickListener(this);
-//
-//        etPassword = (EditText)findViewById(R.id.et_password);
-//        etPassword.setOnClickListener(this);
 
-        tvUsername = (TextView)findViewById(R.id.tvUser);
-//        tvLogin.setOnClickListener(this);
-//
-//        tvSignUp = (TextView)findViewById(R.id.tv_signup);
-//        tvSignUp.setOnClickListener(this);
+        etUsername = (EditText) findViewById(R.id.et_UserName);
+
     }
 
     @Override
@@ -50,7 +42,7 @@ public class UserProfilePage extends AppCompatActivity {
         // This is passed from Login Screen.
         mUsername = getIntent().getExtras().getString(Constants.USERNAME);
 
-        tvUsername.setText(mUsername);
+        etUsername.setText(mUsername);
 
     }
 

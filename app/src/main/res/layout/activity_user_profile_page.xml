@@ -6,12 +6,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.unleashed.android.celestialgame.views.UserProfilePage">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvUser"/>
+        android:text="User Pofile Page"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:text="Name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tvUser"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/et_UserName"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:background="@drawable/border_round_corners" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:text="Address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tvAddress"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/et_Address"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:background="@drawable/border_round_corners" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:text="Contact Number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tvContactNumber"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:id="@+id/et_ContactNumber"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border_round_corners"
+            android:inputType="phone"
+            android:padding="5dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:text="Update Profile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/tv_login"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/border_round_corners"
+            android:textAlignment="center"
+            android:gravity="center" />
+    </LinearLayout>
 
 </LinearLayout>
