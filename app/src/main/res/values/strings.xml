@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Celestial Game</string>
+    <string name="title_activity_user_profile_page">User Profile Page</string>
 </resources>

@@ -18,7 +18,6 @@ public class FirebaseDBHelper {
         // Write a message to the database
         database = FirebaseDatabase.getInstance();
         dbRef = database.getReference();
-
     }
 
     public static void addValueEventListener(ValueEventListener vel){

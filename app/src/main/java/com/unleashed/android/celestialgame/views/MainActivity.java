@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
         if(validuser){
             displayPopup("Login Success...");
             // Take me to user profile page
+
         } else {
             displayPopup("Try again with Correct Login Credentials.");
         }
