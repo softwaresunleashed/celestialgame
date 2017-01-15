@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
     public void onDataChange(DataSnapshot dataSnapshot) {
         // This method is called once with the initial value and again
         // whenever data at this location is updated.
-
         prepareLocalUserList(dataSnapshot);
     }
 
@@ -137,11 +136,11 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_login:
-                authenticateUser(etUsername.getText().toString(), etPassword.getText().toString());
+                authenticateUser(etUsername.getText().toString().trim(), etPassword.getText().toString().trim());
                 break;
 
             case R.id.tv_signup:
-                writeNewUser(etUsername.getText().toString(), etPassword.getText().toString());
+                writeNewUser(etUsername.getText().toString().trim(), etPassword.getText().toString().trim());
                 break;
         }
     }
@@ -165,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
         if(validuser){
             displayPopup("Login Success...");
             // Take me to user profile page
+            UserProfilePage.startActivity(this, username);
 
         } else {
             displayPopup("Try again with Correct Login Credentials.");

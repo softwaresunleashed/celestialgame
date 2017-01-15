@@ -8,6 +8,10 @@
     android:fitsSystemWindows="true"
     tools:context="com.unleashed.android.celestialgame.views.UserProfilePage">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvUser"/>
 
 
 </LinearLayout>
