@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
 
     private void prepareLocalUserList(DataSnapshot dataSnapshot){
         Map<String, Object> objectMap = (HashMap<String, Object>) dataSnapshot.getValue();
+        if(objectMap == null){
+            // No Users yet
+            return;
+        }
+
         HashMap<String, Object> jsonPayload = (HashMap<String, Object>)objectMap.get("users");
         if(jsonPayload == null){
             // No Users yet
@@ -166,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
             Utils.displayPopup("Login Success...");
             clearInputFields();
             // Take me to user profile page
-            UserProfilePage.startActivity(this, username);
+            UserProfilePage.startActivity(this, username, password);
 
         } else {
             Utils.displayPopup("Try again with Correct Login Credentials.");

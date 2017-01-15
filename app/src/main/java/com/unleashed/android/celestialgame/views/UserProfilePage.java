@@ -4,30 +4,45 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.unleashed.android.celestialgame.R;
+import com.unleashed.android.celestialgame.controllers.FirebaseDBHelper;
 import com.unleashed.android.celestialgame.helpers.Constants;
+import com.unleashed.android.celestialgame.models.User;
+import com.unleashed.android.celestialgame.models.UserProfile;
 
-public class UserProfilePage extends AppCompatActivity {
+public class UserProfilePage extends AppCompatActivity implements View.OnClickListener {
 
     private String mUsername;
+    private String mPassword;
 
 
-    private EditText etUsername;
+    private TextView tvUsername;
+    private TextView tvUpdateProfile;
+    private EditText etAddress;
+    private EditText etContact;
+    private EditText etPassword;
 
 
-    public static void startActivity(Context context, String username) {
+    public static void startActivity(Context context, String username, String password) {
         Intent intent = new Intent(context, UserProfilePage.class);
         intent.putExtra(Constants.USERNAME, username);
+        intent.putExtra(Constants.PASSWORD, password);
 
         context.startActivity(intent);
     }
 
     private void initUIHandles() {
+        tvUsername = (TextView) findViewById(R.id.tv_UserName);
+        etAddress = (EditText) findViewById(R.id.et_Address);
+        etContact = (EditText) findViewById(R.id.et_ContactNumber);
+        etPassword = (EditText) findViewById(R.id.et_password);
 
-        etUsername = (EditText) findViewById(R.id.et_UserName);
-
+        tvUpdateProfile = (TextView) findViewById(R.id.tv_updateprofile);
+        tvUpdateProfile.setOnClickListener(this);
     }
 
     @Override
@@ -41,9 +56,27 @@ public class UserProfilePage extends AppCompatActivity {
         // Get the Name of the User ID the user is logged in with.
         // This is passed from Login Screen.
         mUsername = getIntent().getExtras().getString(Constants.USERNAME);
+        mPassword = getIntent().getExtras().getString(Constants.PASSWORD);
 
-        etUsername.setText(mUsername);
+        // Set the username (uneditable)
+        tvUsername.setText(mUsername);
+
+        // Set the original password
+        etPassword.setText(mPassword);
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_updateprofile:
+                updateProfile();
+                break;
+        }
+    }
+
+    private void updateProfile() {
+        User userObj = new User(mUsername, etPassword.getText().toString(), new UserProfile(etAddress.getText().toString(), etContact.getText().toString()));
+        FirebaseDBHelper.write("users", mUsername ,userObj);
+    }
 }
