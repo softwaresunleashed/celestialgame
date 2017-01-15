@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.unleashed.android.celestialgame.R;
+import com.unleashed.android.celestialgame.application.CelestialApplication;
 import com.unleashed.android.celestialgame.controllers.FirebaseDBHelper;
 import com.unleashed.android.celestialgame.helpers.Constants;
 import com.unleashed.android.celestialgame.models.User;
@@ -77,16 +79,20 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
     private void writeNewUser(String userId, String password) {
         User userObj = new User(userId, password);
 
-        FirebaseDBHelper.write("users", userId ,userObj);
+        // Check if user exists already, if yes display a error toast
+        if(isUserAlreadyExist(userId)){
+            displayError("User Exists...Try With Different UserName");
+            return;
+        } else {
+            FirebaseDBHelper.write("users", userId ,userObj);
+        }
     }
 
+    private void displayError(String s) {
+        Toast.makeText(CelestialApplication.getContext(), s, Toast.LENGTH_LONG).show();
+    }
 
-    //Firebase database data changed event callbacks
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        // This method is called once with the initial value and again
-        // whenever data at this location is updated.
-
+    private void prepareLocalUserList(DataSnapshot dataSnapshot){
         Map<String, Object> objectMap = (HashMap<String, Object>) dataSnapshot.getValue();
         HashMap<String, Object> jsonPayload = (HashMap<String, Object>)objectMap.get("users");
         Collection<HashMap<String, String>> list = new ArrayList(jsonPayload.values());
@@ -102,6 +108,15 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
             mListUser.add(user);
             i++;
         }
+    }
+
+    //Firebase database data changed event callbacks
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        // This method is called once with the initial value and again
+        // whenever data at this location is updated.
+
+        prepareLocalUserList(dataSnapshot);
     }
 
     @Override
@@ -122,5 +137,25 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
                 break;
         }
     }
+
+    private boolean isUserAlreadyExist(String username){
+        boolean result = false;
+
+        int sizeoflist = mListUser.size();
+        int i = 0;
+        while(i < sizeoflist){
+            String usernameInList = mListUser.get(i).getUsername();
+
+            if(username.equals(usernameInList)){
+                result = true;
+                break;
+            }
+
+            i++;
+        }
+        return result;
+    }
+
+
 
 }
