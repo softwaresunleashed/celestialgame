@@ -116,8 +116,10 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
         while(i < sizeoflist){
             String username = ((HashMap<String, String>)list.toArray()[i]).get(Constants.USERNAME).toString();
             String password = ((HashMap<String, String>)list.toArray()[i]).get(Constants.PASSWORD).toString();
+            String address = ((HashMap<String, String>)list.toArray()[i]).get(Constants.ADDRESS).toString();
+            String contact = ((HashMap<String, String>)list.toArray()[i]).get(Constants.CONTACT).toString();
 
-            User user = new User(username, password, new UserProfile("", ""));
+            User user = new User(username, password, new UserProfile(address, contact));
             mListUser.add(user);
             i++;
         }
@@ -171,7 +173,10 @@ public class MainActivity extends AppCompatActivity implements ValueEventListene
             Utils.displayPopup("Login Success...");
             clearInputFields();
             // Take me to user profile page
-            UserProfilePage.startActivity(this, username, password);
+            UserProfilePage.startActivity(this, username,
+                                                password,
+                                                mListUser.get(i).getUserProfile().getAddress(),
+                                                mListUser.get(i).getUserProfile().getContact() );
 
         } else {
             Utils.displayPopup("Try again with Correct Login Credentials.");

@@ -18,6 +18,8 @@ public class UserProfilePage extends AppCompatActivity implements View.OnClickLi
 
     private String mUsername;
     private String mPassword;
+    private String mAddress;
+    private String mContact;
 
 
     private TextView tvUsername;
@@ -27,10 +29,12 @@ public class UserProfilePage extends AppCompatActivity implements View.OnClickLi
     private EditText etPassword;
 
 
-    public static void startActivity(Context context, String username, String password) {
+    public static void startActivity(Context context, String username, String password, String address, String contact) {
         Intent intent = new Intent(context, UserProfilePage.class);
         intent.putExtra(Constants.USERNAME, username);
         intent.putExtra(Constants.PASSWORD, password);
+        intent.putExtra(Constants.ADDRESS, address);
+        intent.putExtra(Constants.CONTACT, contact);
 
         context.startActivity(intent);
     }
@@ -57,12 +61,17 @@ public class UserProfilePage extends AppCompatActivity implements View.OnClickLi
         // This is passed from Login Screen.
         mUsername = getIntent().getExtras().getString(Constants.USERNAME);
         mPassword = getIntent().getExtras().getString(Constants.PASSWORD);
+        mAddress = getIntent().getExtras().getString(Constants.ADDRESS);
+        mContact = getIntent().getExtras().getString(Constants.CONTACT);
 
         // Set the username (uneditable)
         tvUsername.setText(mUsername);
 
         // Set the original password
         etPassword.setText(mPassword);
+
+        etAddress.setText(mAddress);
+        etContact.setText(mContact);
 
     }
 

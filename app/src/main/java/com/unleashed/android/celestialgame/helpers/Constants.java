@@ -7,5 +7,7 @@ package com.unleashed.android.celestialgame.helpers;
 public class Constants {
     public static String USERNAME = "username";
     public static String PASSWORD = "password";
+    public static String ADDRESS = "address";
+    public static String CONTACT = "contact";
 
 }
